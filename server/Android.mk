@@ -46,7 +46,7 @@ LOCAL_C_INCLUDES := \
         system/netd/include \
 
 LOCAL_CLANG := true
-LOCAL_CPPFLAGS := -std=c++11 -Wall -Werror
+LOCAL_CPPFLAGS := -Wall -Werror
 LOCAL_MODULE := netd
 
 LOCAL_INIT_RC := netd.rc
@@ -120,7 +120,7 @@ LOCAL_CFLAGS := -Wall -Werror
 LOCAL_CLANG := true
 LOCAL_MODULE := ndc
 LOCAL_SHARED_LIBRARIES := libcutils
-LOCAL_SRC_FILES := ndc.c
+LOCAL_SRC_FILES := ndc.cpp
 
 include $(BUILD_EXECUTABLE)
 
@@ -130,16 +130,22 @@ include $(BUILD_EXECUTABLE)
 include $(CLEAR_VARS)
 LOCAL_MODULE := netd_unit_test
 LOCAL_CFLAGS := -Wall -Werror -Wunused-parameter
-LOCAL_C_INCLUDES := system/netd/server system/netd/server/binder system/core/logwrapper/include
+LOCAL_C_INCLUDES := \
+        system/netd/include \
+        system/netd/server \
+        system/netd/server/binder \
+        system/core/logwrapper/include \
+
 LOCAL_SRC_FILES := \
         NetdConstants.cpp IptablesBaseTest.cpp \
         BandwidthController.cpp BandwidthControllerTest.cpp \
         FirewallControllerTest.cpp FirewallController.cpp \
+        NatControllerTest.cpp NatController.cpp \
         SockDiagTest.cpp SockDiag.cpp \
         StrictController.cpp StrictControllerTest.cpp \
         UidRanges.cpp \
 
 LOCAL_MODULE_TAGS := tests
-LOCAL_SHARED_LIBRARIES := liblog libbase libcutils liblogwrap
+LOCAL_SHARED_LIBRARIES := liblog libbase libcutils liblogwrap libsysutils
 include $(BUILD_NATIVE_TEST)
 
